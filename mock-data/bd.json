@@ -1,0 +1,16 @@
+{
+  "alunos": [
+    {
+      "id": 1,
+      "nome": "Joana",
+      "apelido": "Fernandes",
+      "curso": "Engenharia Informática",
+      "anoCurricular": 2
+    }
+  ],
+  "cursos": [
+    { "nomeDoCurso": "Engenharia Informática" },
+    { "nomeDoCurso": "Gestão" },
+    { "nomeDoCurso": "Design" }
+  ]
+}
