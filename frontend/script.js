@@ -17,11 +17,6 @@ function carregarAlunos() {
         )
         .sort((a, b) => a.nome.localeCompare(b.nome));
 
-      function destacar(texto, termo) {
-        if (!termo) return texto;
-        const regex = new RegExp(`(${termo})`, 'gi');
-        return texto.replace(regex, '<mark>$1</mark>');
-      }
 
 lista.innerHTML = filtrados.map(a => `
   <div class="aluno-card" data-id="${a.id}">
@@ -41,6 +36,11 @@ lista.innerHTML = filtrados.map(a => `
           removerAluno(id);
         });
       });
+
+      document.getElementById("btnPesquisar").addEventListener("click", () => {
+  carregarAlunos(); // or any filter function you're using
+});
+
 
       // Botões editar
       document.querySelectorAll(".btn-editar").forEach(button => {
