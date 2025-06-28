@@ -23,21 +23,16 @@ function carregarAlunos() {
         return texto.replace(regex, '<mark>$1</mark>');
       }
 
-      lista.innerHTML = filtrados.map(a => {
-        const nome = destacar(a.nome, termo);
-        const apelido = destacar(a.apelido, termo);
-        const curso = destacar(a.curso, termo);
+lista.innerHTML = filtrados.map(a => `
+  <div class="aluno-card" data-id="${a.id}">
+    ${a.nome} ${a.apelido} - ${a.curso} (${a.anoCurricular}º ano)
+    <div>
+      <button class="btn-action btn-edit">Editar</button>
+      <button class="btn-action btn-delete">Apagar</button>
+    </div>
+  </div>
+`).join('');
 
-        return `
-          <div class="aluno-card" data-id="${a.id}">
-            ${nome} ${apelido} - ${curso} (${a.anoCurricular}º ano)
-            <div>
-              <button class="btn-editar">Editar</button>
-              <button class="btn-apagar">Apagar</button>
-            </div>
-          </div>
-        `;
-      }).join('');
 
       // Botões apagar
       document.querySelectorAll(".btn-apagar").forEach(button => {
