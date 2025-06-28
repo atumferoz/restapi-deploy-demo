@@ -1,102 +1,306 @@
+/* Estilos para a página */
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 2rem;
-  background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
-  color: #333;
+    font-family: Arial, sans-serif;
+   background-color: #000000; /* preto */
+  color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
 }
-
-h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #0d47a1;
-}
-
-#pesquisa {
-  display: block;
-  margin: 0 auto 1.5rem auto;
-  padding: 10px;
-  width: 60%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-}
-
-#form-aluno {
-  max-width: 500px;
-  margin: 0 auto 2rem auto;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px #ccc;
-}
-
-#form-aluno input,
-#form-aluno button {
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #bbb;
-}
-
-#form-aluno button {
-  background-color: #0288d1;
-  color: white;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
-
-#form-aluno button:hover {
-  background-color: #0277bd;
-}
-
-#alunos {
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
-}
-
-.aluno-card {
-  background: white;
-  margin-bottom: 10px;
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 0 6px #ccc;
+/* Navbar */
+.navbar {
+  background-color: #1c1c1c;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: fadeIn 0.4s ease-in-out;
+  padding: 10px 40px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.logo {
+  font-size: 22px;
+  font-weight: bold;
 }
 
-#alunos button {
-  margin-left: 6px;
-  padding: 6px 10px;
-  font-size: 0.9em;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  padding: 8px 12px;
+  display: block;
+}
+
+.nav-links a:hover {
+  background-color: #444;
+  border-radius: 5px;
+}
+
+
+.dropdown-content li a {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+}
+
+.dropdown-content li:last-child a {
+  border-bottom: none;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/* Rodapé */
+footer {
+  background-color: #000;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer a {
+  color: #4fa3ff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #1c1c1c;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #444;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 10px;
+  background-color: #2e2e2e;
+  border: 1px solid #555;
+  color: #e0e0e0;
+  border-radius: 5px;
+}
+
+form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #4fa3ff;
+  color: #000;
+  font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.btn-editar {
-  background-color: #ffc107;
-  color: #333;
+form button:hover {
+  background-color: #3892e0;
 }
 
-.btn-apagar {
-  background-color: #e53935;
-  color: white;
+/* Consulta de Alunos */
+.consulta-container {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
 }
 
-mark {
-  background-color: #ffeb3b;
-  color: black;
-  font-weight: bold;
-  padding: 0 2px;
-  border-radius: 2px;
+.lista-alunos {
+  flex: 2;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
 }
+
+.form-edicao {
+  flex: 1;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 10px;
+  background-color: #2e2e2e;
+  border: 1px solid #555;
+  color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.search-container button {
+  padding: 10px 15px;
+  background-color: #4fa3ff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #3892e0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+th {
+  background-color: #2e2e2e;
+  color: #4fa3ff;
+}
+
+tr:hover {
+  background-color: #2e2e2e;
+}
+
+.btn-action {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #4fa3ff;
+  color: #000;
+}
+
+.btn-delete {
+  background-color: #ff4f4f;
+  color: #000;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-excluir {
+  background-color: #ff4f4f;
+  color: #000;
+}
+
+.btn-cancelar {
+  background-color: #888;
+  color: #000;
+}
+
+
+/* Consulta de Cursos */
+.lista-cursos {
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 2;
+}
+
+.form-edicao {
+  flex: 1;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+/*main{
+     background-color: #121212;      /* fundo escuro para combinar com o menu */
+  /*color: #1e90ff;                 /* texto azul igual aos links */
+  /*border: 2px solid #1e90ff;      /* borda azul */
+  /*padding: 20px;                  /* espaço interno confortável */
+  /*border-radius: 8px;             /* cantos arredondados */
+  /*box-shadow: 0 0 15px #1e90ffaa; /* sombra azul suave */
+  /*max-width: 800px;               /* largura máxima para melhor leitura */
+  /*margin: 20px auto;              /* centralizar e margem vertical */
+  /*margin-top: 200px;
+  /*font-size: 1.1rem;              /* texto um pouco maior */
+  /*line-height: 1.5;
+/*} */
+
+/*main div{
+    margin-bottom: 20px; /* espaçamento entre os blocos */
+    /*display: flex;
+    /*color: #1e90ff;
+   /* align-items: center; /* alinha os itens verticalmente */
+   /* justify-content: center; /* centraliza os itens horizontalmente */
+    
+/*} */
+/* h3{
+    color:#1e90ff;
+    font-size: 24px; /* tamanho do título */
+    /*margin-bottom: 10px; /* espaçamento abaixo do título */
+    /*text-align: justify;*/
+/*} */
+
+/*tr th{
+    color:#1e90ff;
+     text-align: center;
+    font-size: 18px;
+    box-shadow:shadow: 0 0 15px #1e90ffaa;
+}
+#btnAlunos{
+    background-color: #121212;
+    color: #1e90ff;
+     box-shadow: 0 0 15px #1e90ffaa;
+     font-size: 18px;
+     margin-right: 20px;
+}
+#btnCursos{
+    background-color: #121212;
+    color: #1e90ff;
+    box-shadow: 0 0 15px #1e90ffaa;
+    font-size: 18px;
+}
+
+.add-student {
+    background-color: #121212;
+    color: #1e90ff;
+    box-shadow: 0 0 15px #1e90ffaa;
+    display: none; /* Esconde o botão inicialmente ;
+   
+}*/

@@ -6,22 +6,51 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Lista de Alunos</h1>
 
-  <!-- Campo de pesquisa separado -->
-  <input type="text" id="pesquisa" placeholder="Pesquisar alunos...">
+  <nav class="navbar">
+    <div class="logo">Gestão Escolar</div>
+    <ul class="nav-links">
+      <li><a href="#">Início</a></li>
+      <li><a href="#">Alunos</a></li>
+      <li><a href="#">Cursos</a></li>
+    </ul>
+  </nav>
 
-  <!-- Lista de alunos sempre visível -->
-  <div id="alunos"></div>
+  <div class="consulta-container">
+    <!-- Lista de alunos -->
+    <div class="lista-alunos">
+      <div class="search-container">
+        <input type="text" id="pesquisa" placeholder="Pesquisar alunos...">
+      </div>
+      <div id="alunos"></div>
+    </div>
 
-  <!-- Formulário de aluno -->
-  <form id="form-aluno">
-    <input type="text" id="nome" placeholder="Nome" required>
-    <input type="text" id="apelido" placeholder="Apelido" required>
-    <input type="text" id="curso" placeholder="Curso" required>
-    <input type="number" id="ano" placeholder="Ano" required>
-    <button type="submit">Adicionar</button>
-  </form>
+    <!-- Formulário de edição/adicionar -->
+    <div class="form-edicao">
+      <form id="form-aluno">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" required>
+
+        <label for="apelido">Apelido</label>
+        <input type="text" id="apelido" required>
+
+        <label for="curso">Curso</label>
+        <input type="text" id="curso" required>
+
+        <label for="ano">Ano</label>
+        <input type="number" id="ano" required>
+
+        <div class="form-actions">
+          <button type="submit">Salvar</button>
+          <button type="button" class="btn-cancelar" onclick="form.reset(); alunoEditando = null;">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Desenvolvido por <a href="#">Você</a> &copy; 2025
+  </footer>
 
   <script src="script.js"></script>
 </body>
