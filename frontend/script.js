@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/alunos";
+const url = "https://restapi-deploy-demo-vsf8.onrender.com";
 const lista = document.getElementById("alunos");
 const form = document.getElementById("form-aluno");
 
