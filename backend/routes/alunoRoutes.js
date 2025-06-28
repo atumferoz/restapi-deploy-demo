@@ -2,20 +2,21 @@ const express = require('express');
 const router = express.Router();
 const Aluno = require('../models/aluno');
 
-// GET todos os alunos
+// GET /alunos — listar
 router.get('/', async (req, res) => {
+  console.log('📥 GET /alunos');
   const alunos = await Aluno.find();
   res.json(alunos);
 });
 
-// POST novo aluno
+// POST /alunos — criar
 router.post('/', async (req, res) => {
   const novo = new Aluno(req.body);
   const guardado = await novo.save();
   res.status(201).json(guardado);
 });
 
-// PUT editar aluno
+// PUT /alunos/:id — atualizar
 router.put('/:id', async (req, res) => {
   try {
     const atualizado = await Aluno.findByIdAndUpdate(
@@ -35,8 +36,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-
-// DELETE remover aluno
+// DELETE /alunos/:id — apagar
 router.delete('/:id', async (req, res) => {
   await Aluno.findByIdAndDelete(req.params.id);
   res.sendStatus(204);

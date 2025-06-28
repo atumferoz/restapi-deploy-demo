@@ -139,13 +139,6 @@ form button:hover {
   border-radius: 10px;
 }
 
-.form-edicao {
-  flex: 1;
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-  height: fit-content;
-}
 
 .search-container {
   display: flex;
@@ -274,7 +267,6 @@ tr:hover {
     color:#1e90ff;
     font-size: 24px; /* tamanho do título */
     /*margin-bottom: 10px; /* espaçamento abaixo do título */
-    /*text-align: justify;*/
 /*} */
 
 /*tr th{
