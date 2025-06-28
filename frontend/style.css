@@ -52,7 +52,12 @@ h1 {
   background-color: #0277bd;
 }
 
-#alunos div {
+#alunos {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+.aluno-card {
   background: white;
   margin-bottom: 10px;
   padding: 12px;
@@ -61,6 +66,12 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 #alunos button {
@@ -80,4 +91,12 @@ h1 {
 .btn-apagar {
   background-color: #e53935;
   color: white;
+}
+
+mark {
+  background-color: #ffeb3b;
+  color: black;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 2px;
 }

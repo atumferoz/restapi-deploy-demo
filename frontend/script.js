@@ -17,25 +17,40 @@ function carregarAlunos() {
         )
         .sort((a, b) => a.nome.localeCompare(b.nome));
 
-      lista.innerHTML = filtrados.map(a => `
-        <div data-id="${a.id}">
-          ${a.nome} ${a.apelido} - ${a.curso} (${a.anoCurricular}º ano)
-          <button class="btn-editar">Editar</button>
-          <button class="btn-apagar">Apagar</button>
-        </div>
-      `).join('');
+      function destacar(texto, termo) {
+        if (!termo) return texto;
+        const regex = new RegExp(`(${termo})`, 'gi');
+        return texto.replace(regex, '<mark>$1</mark>');
+      }
 
-      // Ligar os botões depois do render
+      lista.innerHTML = filtrados.map(a => {
+        const nome = destacar(a.nome, termo);
+        const apelido = destacar(a.apelido, termo);
+        const curso = destacar(a.curso, termo);
+
+        return `
+          <div class="aluno-card" data-id="${a.id}">
+            ${nome} ${apelido} - ${curso} (${a.anoCurricular}º ano)
+            <div>
+              <button class="btn-editar">Editar</button>
+              <button class="btn-apagar">Apagar</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Botões apagar
       document.querySelectorAll(".btn-apagar").forEach(button => {
         button.addEventListener("click", e => {
-          const id = e.target.parentElement.dataset.id;
+          const id = e.target.closest('.aluno-card').dataset.id;
           removerAluno(id);
         });
       });
 
+      // Botões editar
       document.querySelectorAll(".btn-editar").forEach(button => {
         button.addEventListener("click", e => {
-          const div = e.target.parentElement;
+          const div = e.target.closest('.aluno-card');
           const id = div.dataset.id;
           const texto = div.firstChild.textContent;
           const regex = /(.+?) (.+?) - (.+?) \((\d+)/;
