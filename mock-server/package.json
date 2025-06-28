@@ -1,10 +1,17 @@
 {
   "name": "mock-server",
   "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "json-server --watch ../mock-data/bd.json --port 3000"
   },
-  "devDependencies": {
-    "json-server": "^0.17.4"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "json-server": "^1.0.0-beta.3"
   }
 }

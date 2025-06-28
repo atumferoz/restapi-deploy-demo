@@ -1,15 +1,21 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const app = new express();
+const alunosRoutes = require('./routes/alunos');
+
+const app = express();
 app.use(cors());
+app.use(express.json());
 
-const PORT = 3000;
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Atlas ligado"))
+  .catch((err) => console.error("❌ Erro na ligação:", err));
 
-app.get("/nomes", async (req, res) => {
-    res.json([{ "nome": "eva" }, { "nome": "adão" }]);
-});
+app.use('/alunos', alunosRoutes);
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log("servidor na porta" + PORT)
-})
+  console.log(`🚀 Servidor na porta ${PORT}`);
+});
