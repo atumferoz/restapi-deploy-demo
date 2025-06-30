@@ -19,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Usar rota de alunos
 app.use('/alunos', alunosRoutes);
+app.use('/cursos', cursoRoutes); // 👈 registro das rotas de cursos
 
 // Inicializar servidor
 const PORT = process.env.PORT || 3000;
