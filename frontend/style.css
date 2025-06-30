@@ -1,4 +1,18 @@
 /* RESET */
+
+#secao-inicio {
+  background-image: url('https://images7.alphacoders.com/314/314030.png'); /* change to yours */
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  min-height: 70vh;
+  border-radius: 12px;
+  padding: 40px;
+  margin-top: 40px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+
+
 * {
   margin: 0;
   padding: 0;

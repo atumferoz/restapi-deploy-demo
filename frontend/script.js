@@ -2,7 +2,6 @@ const urlBase = "https://restapi-deploy-demo-vsf8.onrender.com";
 const lista = document.getElementById("alunos");
 const form = document.getElementById("form-aluno");
 const campoPesquisa = document.getElementById("pesquisa");
-
 let alunoEditando = null;
 
 // 💡 Alternância entre seções
@@ -11,9 +10,10 @@ function mostrarSecao(secao) {
   document.getElementById("secao-" + secao).style.display = "block";
 
   if (secao === "alunos") carregarAlunos();
+  if (secao === "cursos") carregarCursos();
 }
 
-// Ativação da navegação
+// Navegação
 document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
@@ -32,11 +32,8 @@ function carregarAlunos() {
     .then(res => res.json())
     .then(data => {
       const termo = campoPesquisa.value.toLowerCase();
-
       const filtrados = data
-        .filter(a =>
-          `${a.nome} ${a.apelido} ${a.curso}`.toLowerCase().includes(termo)
-        )
+        .filter(a => `${a.nome} ${a.apelido} ${a.curso}`.toLowerCase().includes(termo))
         .sort((a, b) => a.nome.localeCompare(b.nome));
 
       lista.innerHTML = filtrados.map(a => `
@@ -49,7 +46,6 @@ function carregarAlunos() {
         </div>
       `).join('');
 
-      // Botões
       document.querySelectorAll(".btn-delete").forEach(button => {
         button.addEventListener("click", e => {
           const id = e.target.closest('.aluno-card').dataset.id;
@@ -69,7 +65,6 @@ function carregarAlunos() {
           document.getElementById("apelido").value = apelido;
           document.getElementById("curso").value = curso;
           document.getElementById("ano").value = ano;
-
           alunoEditando = id;
         });
       });
@@ -83,12 +78,10 @@ function carregarAlunos() {
 // 🧹 Apagar aluno
 function removerAluno(id) {
   if (!confirm("Deseja apagar este aluno?")) return;
-
-  fetch(`${urlBase}/alunos/${id}`, { method: 'DELETE' })
-    .then(() => carregarAlunos());
+  fetch(`${urlBase}/alunos/${id}`, { method: 'DELETE' }).then(() => carregarAlunos());
 }
 
-// 💾 Criar / Atualizar
+// 💾 Criar / Atualizar aluno
 form.addEventListener("submit", e => {
   e.preventDefault();
 
@@ -122,11 +115,38 @@ form.addEventListener("submit", e => {
     });
 });
 
-// Botão cancelar
+// Cancelar edição
 document.querySelector(".btn-cancelar").addEventListener("click", () => {
   form.reset();
   alunoEditando = null;
 });
 
-// Início padrão
+// 🎓 Carregar cursos
+function carregarCursos() {
+  const listaCursos = document.getElementById("cursos");
+  listaCursos.innerHTML = "<p>Carregando cursos...</p>";
+
+  fetch(`${urlBase}/cursos`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.length) {
+        listaCursos.innerHTML = "<p>Nenhum curso encontrado.</p>";
+        return;
+      }
+
+      listaCursos.innerHTML = data.map(curso => `
+        <div class="aluno-card">
+          <strong>${curso.nome}</strong><br>
+          Código: ${curso.codigo}<br>
+          Duração: ${curso.duracao} anos
+        </div>
+      `).join('');
+    })
+    .catch(err => {
+      console.error("❌ Erro ao carregar cursos:", err);
+      listaCursos.innerHTML = "<p>Erro ao carregar cursos.</p>";
+    });
+}
+
+// Inicializar
 mostrarSecao("alunos");

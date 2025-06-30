@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 
 // Importar rotas
 const alunosRoutes = require('./routes/alunoRoutes');
+const cursosRoutes = require('./routes/cursoRoutes'); // 👈 importar rotas de cursos
+
 
 const app = express();
 app.use(cors());

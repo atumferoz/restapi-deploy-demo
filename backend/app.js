@@ -9,6 +9,8 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('📦 MongoDB conectado'));
 
 app.use('/alunos', require('./routes/alunoRoutes'));
+app.use('/cursos', cursosRoutes);
+
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDoc = require('./docs/swagger.json');
