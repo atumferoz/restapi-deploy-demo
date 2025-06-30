@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 // Importar rotas
 const alunosRoutes = require('./routes/alunoRoutes');
-const cursosRoutes = require('./routes/cursoRoutes'); // 👈 importar rotas de cursos
+const cursoRoutes = require('./routes/cursoRoutes'); // 👈 importar rotas de cursos
 
 
 const app = express();
@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Usar rota de alunos
 app.use('/alunos', alunosRoutes);
-//app.use('/cursos', cursoRoutes); // 👈 registro das rotas de cursos
+app.use('/cursos', cursoRoutes); // 👈 registro das rotas de cursos
 
 // Inicializar servidor
 const PORT = process.env.PORT || 3000;
