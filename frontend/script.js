@@ -148,5 +148,75 @@ function carregarCursos() {
     });
 }
 
+// 🎓 Formulário de Cursos
+const formCurso = document.getElementById("form-curso");
+
+formCurso.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const curso = {
+    nome: document.getElementById("nome-curso").value,
+    codigo: document.getElementById("codigo-curso").value,
+    duracao: parseInt(document.getElementById("duracao-curso").value)
+  };
+
+  fetch(`${urlBase}/cursos`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(curso)
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Erro ao salvar curso");
+      return res.json();
+    })
+    .then(() => {
+      formCurso.reset();
+      carregarCursos();
+    })
+    .catch(err => {
+      alert("Erro ao salvar curso.");
+      console.error(err);
+    });
+});
+
+// 🧽 Deletar curso
+function deletarCurso(id) {
+  if (!confirm("Deseja apagar este curso?")) return;
+
+  fetch(`${urlBase}/cursos/${id}`, { method: "DELETE" })
+    .then(() => carregarCursos());
+}
+
+// Atualizar a função carregarCursos
+function carregarCursos() {
+  const listaCursos = document.getElementById("cursos");
+  listaCursos.innerHTML = "<p>Carregando cursos...</p>";
+
+  fetch(`${urlBase}/cursos`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.length) {
+        listaCursos.innerHTML = "<p>Nenhum curso encontrado.</p>";
+        return;
+      }
+
+      listaCursos.innerHTML = data.map(curso => `
+        <div class="aluno-card">
+          <strong>${curso.nome}</strong><br>
+          Código: ${curso.codigo}<br>
+          Duração: ${curso.duracao} anos
+          <div style="margin-top: 10px;">
+            <button class="btn-action btn-delete" onclick="deletarCurso('${curso._id}')">Apagar</button>
+          </div>
+        </div>
+      `).join('');
+    })
+    .catch(err => {
+      console.error("❌ Erro ao carregar cursos:", err);
+      listaCursos.innerHTML = "<p>Erro ao carregar cursos.</p>";
+    });
+}
+
+
 // Inicializar
 mostrarSecao("alunos");
