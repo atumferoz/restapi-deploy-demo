@@ -2,54 +2,76 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Gestão de Alunos</title>
+  <title>Gestão Escolar</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">Gestão Escolar</div>
     <ul class="nav-links">
-      <li><a href="#">Início</a></li>
-      <li><a href="#">Alunos</a></li>
-      <li><a href="#">Cursos</a></li>
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#alunos">Alunos</a></li>
+      <li><a href="#cursos">Cursos</a></li>
     </ul>
   </nav>
 
-  <div class="consulta-container">
-    <!-- Lista de alunos -->
-    <div class="lista-alunos">
-     <div class="search-container">
-  <input type="text" id="pesquisa" placeholder="Pesquisar alunos...">
-  <button id="btnPesquisar">Pesquisar</button>
-</div>
-
-      <div id="alunos"></div>
-    </div>
-
-    <!-- Formulário de edição/adicionar -->
-    <div class="form-edicao">
-      <form id="form-aluno">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" required>
-
-        <label for="apelido">Apelido</label>
-        <input type="text" id="apelido" required>
-
-        <label for="curso">Curso</label>
-        <input type="text" id="curso" required>
-
-        <label for="ano">Ano</label>
-        <input type="number" id="ano" required>
-
-        <div class="form-actions">
-          <button type="submit">Salvar</button>
-          <button type="button" class="btn-cancelar" onclick="form.reset(); alunoEditando = null;">Cancelar</button>
-        </div>
-      </form>
+  <!-- Seção Início -->
+  <div id="secao-inicio" class="secao" style="display: none;">
+    <div class="form-container">
+      <h2>Bem-vindo à Gestão Escolar</h2>
+      <p>Utilize o menu para navegar entre as seções e gerir os dados da escola.</p>
     </div>
   </div>
 
+  <!-- Seção Alunos -->
+  <div id="secao-alunos" class="secao">
+    <div class="consulta-container">
+      
+      <!-- Lista de alunos -->
+      <div class="lista-alunos">
+        <div class="search-container">
+          <input type="text" id="pesquisa" placeholder="Pesquisar alunos...">
+          <button id="btnPesquisar">Pesquisar</button>
+        </div>
+        <div id="alunos"></div>
+      </div>
+
+      <!-- Formulário -->
+      <div class="form-edicao">
+        <form id="form-aluno">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" required>
+
+          <label for="apelido">Apelido</label>
+          <input type="text" id="apelido" required>
+
+          <label for="curso">Curso</label>
+          <input type="text" id="curso" required>
+
+          <label for="ano">Ano</label>
+          <input type="number" id="ano" required>
+
+          <div class="form-actions">
+            <button type="submit">Salvar</button>
+            <button type="button" class="btn-cancelar">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Seção Cursos (em branco por enquanto) -->
+  <div id="secao-cursos" class="secao" style="display: none;">
+    <div class="form-container">
+      <h2>Gestão de Cursos</h2>
+      <p>Em desenvolvimento...</p>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
   <footer>
     Desenvolvido por <a href="#">Você</a> &copy; 2025
   </footer>

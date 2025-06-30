@@ -1,21 +1,42 @@
-const url = "https://restapi-deploy-demo-vsf8.onrender.com";
+const urlBase = "https://restapi-deploy-demo-vsf8.onrender.com";
 const lista = document.getElementById("alunos");
 const form = document.getElementById("form-aluno");
 const campoPesquisa = document.getElementById("pesquisa");
+
 let alunoEditando = null;
+
+// 💡 Alternância entre seções
+function mostrarSecao(secao) {
+  document.querySelectorAll(".secao").forEach(div => div.style.display = "none");
+  document.getElementById("secao-" + secao).style.display = "block";
+
+  if (secao === "alunos") carregarAlunos();
+}
+
+// Ativação da navegação
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const href = e.target.getAttribute("href").replace("#", "");
+    mostrarSecao(href);
+  });
+});
 
 // 🔍 Pesquisar
 campoPesquisa.addEventListener("input", carregarAlunos);
 document.getElementById("btnPesquisar").addEventListener("click", carregarAlunos);
 
-// 🚀 Carregar alunos
+// 🧠 Carregar alunos
 function carregarAlunos() {
-  fetch(url)
+  fetch(`${urlBase}/alunos`)
     .then(res => res.json())
     .then(data => {
       const termo = campoPesquisa.value.toLowerCase();
+
       const filtrados = data
-        .filter(a => `${a.nome} ${a.apelido} ${a.curso}`.toLowerCase().includes(termo))
+        .filter(a =>
+          `${a.nome} ${a.apelido} ${a.curso}`.toLowerCase().includes(termo)
+        )
         .sort((a, b) => a.nome.localeCompare(b.nome));
 
       lista.innerHTML = filtrados.map(a => `
@@ -28,6 +49,7 @@ function carregarAlunos() {
         </div>
       `).join('');
 
+      // Botões
       document.querySelectorAll(".btn-delete").forEach(button => {
         button.addEventListener("click", e => {
           const id = e.target.closest('.aluno-card').dataset.id;
@@ -51,18 +73,25 @@ function carregarAlunos() {
           alunoEditando = id;
         });
       });
+    })
+    .catch(err => {
+      console.error("❌ Erro ao carregar alunos:", err);
+      lista.innerHTML = "<p>Erro ao carregar dados.</p>";
     });
 }
 
-// 🧹 Remover
+// 🧹 Apagar aluno
 function removerAluno(id) {
-  fetch(`${url}/${id}`, { method: 'DELETE' })
+  if (!confirm("Deseja apagar este aluno?")) return;
+
+  fetch(`${urlBase}/alunos/${id}`, { method: 'DELETE' })
     .then(() => carregarAlunos());
 }
 
-// 💾 Criar ou atualizar
+// 💾 Criar / Atualizar
 form.addEventListener("submit", e => {
   e.preventDefault();
+
   const aluno = {
     nome: document.getElementById("nome").value,
     apelido: document.getElementById("apelido").value,
@@ -70,19 +99,34 @@ form.addEventListener("submit", e => {
     anoCurricular: parseInt(document.getElementById("ano").value)
   };
 
-  const endpoint = alunoEditando ? `${url}/${alunoEditando}` : url;
+  const endpoint = alunoEditando ? `${urlBase}/alunos/${alunoEditando}` : `${urlBase}/alunos`;
   const metodo = alunoEditando ? "PUT" : "POST";
 
   fetch(endpoint, {
     method: metodo,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(aluno)
-  }).then(() => {
-    form.reset();
-    alunoEditando = null;
-    carregarAlunos();
-  });
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Erro ao salvar aluno");
+      return res.json();
+    })
+    .then(() => {
+      form.reset();
+      alunoEditando = null;
+      carregarAlunos();
+    })
+    .catch(err => {
+      alert("Erro ao salvar aluno. Verifique os dados.");
+      console.error(err);
+    });
 });
 
-// Inicializa
-carregarAlunos();
+// Botão cancelar
+document.querySelector(".btn-cancelar").addEventListener("click", () => {
+  form.reset();
+  alunoEditando = null;
+});
+
+// Início padrão
+mostrarSecao("alunos");
