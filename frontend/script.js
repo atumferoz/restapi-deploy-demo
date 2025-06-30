@@ -1,49 +1,41 @@
 const url = "https://restapi-deploy-demo-vsf8.onrender.com";
 const lista = document.getElementById("alunos");
 const form = document.getElementById("form-aluno");
-
-let alunoEditando = null;
 const campoPesquisa = document.getElementById("pesquisa");
+let alunoEditando = null;
 
+// 🔍 Pesquisar
+campoPesquisa.addEventListener("input", carregarAlunos);
+document.getElementById("btnPesquisar").addEventListener("click", carregarAlunos);
+
+// 🚀 Carregar alunos
 function carregarAlunos() {
   fetch(url)
     .then(res => res.json())
     .then(data => {
       const termo = campoPesquisa.value.toLowerCase();
-
       const filtrados = data
-        .filter(a =>
-          `${a.nome} ${a.apelido} ${a.curso}`.toLowerCase().includes(termo)
-        )
+        .filter(a => `${a.nome} ${a.apelido} ${a.curso}`.toLowerCase().includes(termo))
         .sort((a, b) => a.nome.localeCompare(b.nome));
 
+      lista.innerHTML = filtrados.map(a => `
+        <div class="aluno-card" data-id="${a._id || a.id}">
+          ${a.nome} ${a.apelido} - ${a.curso} (${a.anoCurricular}º ano)
+          <div>
+            <button class="btn-action btn-edit">Editar</button>
+            <button class="btn-action btn-delete">Apagar</button>
+          </div>
+        </div>
+      `).join('');
 
-lista.innerHTML = filtrados.map(a => `
-  <div class="aluno-card" data-id="${a.id}">
-    ${a.nome} ${a.apelido} - ${a.curso} (${a.anoCurricular}º ano)
-    <div>
-      <button class="btn-action btn-edit">Editar</button>
-      <button class="btn-action btn-delete">Apagar</button>
-    </div>
-  </div>
-`).join('');
-
-
-      // Botões apagar
-      document.querySelectorAll(".btn-apagar").forEach(button => {
+      document.querySelectorAll(".btn-delete").forEach(button => {
         button.addEventListener("click", e => {
           const id = e.target.closest('.aluno-card').dataset.id;
           removerAluno(id);
         });
       });
 
-      document.getElementById("btnPesquisar").addEventListener("click", () => {
-  carregarAlunos(); // or any filter function you're using
-});
-
-
-      // Botões editar
-      document.querySelectorAll(".btn-editar").forEach(button => {
+      document.querySelectorAll(".btn-edit").forEach(button => {
         button.addEventListener("click", e => {
           const div = e.target.closest('.aluno-card');
           const id = div.dataset.id;
@@ -62,13 +54,13 @@ lista.innerHTML = filtrados.map(a => `
     });
 }
 
-campoPesquisa.addEventListener("input", carregarAlunos);
-
+// 🧹 Remover
 function removerAluno(id) {
   fetch(`${url}/${id}`, { method: 'DELETE' })
     .then(() => carregarAlunos());
 }
 
+// 💾 Criar ou atualizar
 form.addEventListener("submit", e => {
   e.preventDefault();
   const aluno = {
@@ -92,4 +84,5 @@ form.addEventListener("submit", e => {
   });
 });
 
+// Inicializa
 carregarAlunos();

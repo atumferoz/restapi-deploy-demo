@@ -1,69 +1,61 @@
-/* Estilos para a página */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-   background-color: #000000; /* preto */
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
   color: #e0e0e0;
-    margin: 0;
-    padding: 20px;
+  padding: 20px;
+  line-height: 1.6;
 }
+
 /* Navbar */
 .navbar {
   background-color: #1c1c1c;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
+  padding: 15px 40px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .logo {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
+  color: #4fa3ff;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
   gap: 25px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  position: relative;
+  list-style: none;
 }
 
 .nav-links a {
   color: #e0e0e0;
   text-decoration: none;
   padding: 8px 12px;
-  display: block;
+  transition: background 0.3s;
 }
 
 .nav-links a:hover {
-  background-color: #444;
+  background-color: #4fa3ff33;
   border-radius: 5px;
 }
 
-
-.dropdown-content li a {
-  padding: 10px;
-  border-bottom: 1px solid #333;
-}
-
-.dropdown-content li:last-child a {
-  border-bottom: none;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-/* Rodapé */
+/* Footer */
 footer {
-  background-color: #000;
-  color: #e0e0e0;
+  background-color: #1c1c1c;
+  color: #aaa;
   text-align: center;
-  padding: 15px 0;
+  padding: 15px;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -78,68 +70,72 @@ footer a:hover {
   text-decoration: underline;
 }
 
-.form-container {
-  max-width: 500px;
-  margin: 50px auto;
+/* Containers */
+.consulta-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
   padding: 20px;
+  max-width: 1200px;
+  margin: 80px auto 60px auto;
+}
+
+.lista-alunos,
+.form-edicao,
+.lista-cursos {
   background-color: #1c1c1c;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #444;
+  padding: 25px;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 300px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
 }
 
-.form-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
+/* Formulários */
 form label {
   display: block;
-  margin: 10px 0 5px;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #ccc;
 }
 
 form input,
 form select {
   width: 100%;
   padding: 10px;
+  margin-top: 5px;
   background-color: #2e2e2e;
   border: 1px solid #555;
   color: #e0e0e0;
   border-radius: 5px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #4fa3ff;
+  box-shadow: 0 0 8px #4fa3ff88;
+  outline: none;
 }
 
 form button {
   margin-top: 20px;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #4fa3ff;
   color: #000;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 form button:hover {
   background-color: #3892e0;
 }
 
-/* Consulta de Alunos */
-.consulta-container {
-  display: flex;
-  gap: 30px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-.lista-alunos {
-  flex: 2;
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-
+/* Search */
 .search-container {
   display: flex;
   gap: 10px;
@@ -151,14 +147,15 @@ form button:hover {
   padding: 10px;
   background-color: #2e2e2e;
   border: 1px solid #555;
-  color: #e0e0e0;
   border-radius: 5px;
+  color: #e0e0e0;
 }
 
 .search-container button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: #4fa3ff;
   color: #000;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -168,33 +165,33 @@ form button:hover {
   background-color: #3892e0;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+/* Aluno Card */
+.aluno-card {
+  background-color: #2b2b2b;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  transition: transform 0.2s;
 }
 
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #444;
-}
-
-th {
-  background-color: #2e2e2e;
-  color: #4fa3ff;
-}
-
-tr:hover {
+.aluno-card:hover {
+  transform: translateY(-2px);
   background-color: #2e2e2e;
 }
 
+.aluno-card div {
+  margin-top: 10px;
+}
+
+/* Botões ação */
 .btn-action {
-  padding: 5px 10px;
-  margin-right: 5px;
+  padding: 6px 12px;
+  margin-right: 8px;
+  font-weight: bold;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .btn-edit {
@@ -202,97 +199,41 @@ tr:hover {
   color: #000;
 }
 
+.btn-edit:hover {
+  background-color: #3892e0;
+}
+
 .btn-delete {
   background-color: #ff4f4f;
   color: #000;
 }
 
-.form-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
+.btn-delete:hover {
+  background-color: #e03a3a;
 }
 
-.btn-excluir {
-  background-color: #ff4f4f;
-  color: #000;
+/* Responsividade */
+@media (max-width: 768px) {
+  .consulta-container {
+    flex-direction: column;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links a {
+    padding: 10px 0;
+  }
+
+  footer {
+    font-size: 14px;
+    padding: 10px 0;
+  }
 }
-
-.btn-cancelar {
-  background-color: #888;
-  color: #000;
-}
-
-
-/* Consulta de Cursos */
-.lista-cursos {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-  flex: 2;
-}
-
-.form-edicao {
-  flex: 1;
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-  height: fit-content;
-}
-
-/*main{
-     background-color: #121212;      /* fundo escuro para combinar com o menu */
-  /*color: #1e90ff;                 /* texto azul igual aos links */
-  /*border: 2px solid #1e90ff;      /* borda azul */
-  /*padding: 20px;                  /* espaço interno confortável */
-  /*border-radius: 8px;             /* cantos arredondados */
-  /*box-shadow: 0 0 15px #1e90ffaa; /* sombra azul suave */
-  /*max-width: 800px;               /* largura máxima para melhor leitura */
-  /*margin: 20px auto;              /* centralizar e margem vertical */
-  /*margin-top: 200px;
-  /*font-size: 1.1rem;              /* texto um pouco maior */
-  /*line-height: 1.5;
-/*} */
-
-/*main div{
-    margin-bottom: 20px; /* espaçamento entre os blocos */
-    /*display: flex;
-    /*color: #1e90ff;
-   /* align-items: center; /* alinha os itens verticalmente */
-   /* justify-content: center; /* centraliza os itens horizontalmente */
-    
-/*} */
-/* h3{
-    color:#1e90ff;
-    font-size: 24px; /* tamanho do título */
-    /*margin-bottom: 10px; /* espaçamento abaixo do título */
-/*} */
-
-/*tr th{
-    color:#1e90ff;
-     text-align: center;
-    font-size: 18px;
-    box-shadow:shadow: 0 0 15px #1e90ffaa;
-}
-#btnAlunos{
-    background-color: #121212;
-    color: #1e90ff;
-     box-shadow: 0 0 15px #1e90ffaa;
-     font-size: 18px;
-     margin-right: 20px;
-}
-#btnCursos{
-    background-color: #121212;
-    color: #1e90ff;
-    box-shadow: 0 0 15px #1e90ffaa;
-    font-size: 18px;
-}
-
-.add-student {
-    background-color: #121212;
-    color: #1e90ff;
-    box-shadow: 0 0 15px #1e90ffaa;
-    display: none; /* Esconde o botão inicialmente ;
-   
-}*/

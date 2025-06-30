@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
 
 // POST /alunos — criar
 router.post('/', async (req, res) => {
+  console.log('PP POST body:', req.body);
   const novo = new Aluno(req.body);
   const guardado = await novo.save();
   res.status(201).json(guardado);
@@ -18,6 +19,7 @@ router.post('/', async (req, res) => {
 
 // PUT /alunos/:id — atualizar
 router.put('/:id', async (req, res) => {
+  console.log('PP POST body:', req.body);
   try {
     const atualizado = await Aluno.findByIdAndUpdate(
       req.params.id,
