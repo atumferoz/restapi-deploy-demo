@@ -179,7 +179,7 @@ formCurso.addEventListener("submit", e => {
     });
 });
 
-// 🧽 Deletar curso
+// 🧽 apagar curso
 function deletarCurso(id) {
   if (!confirm("Deseja apagar este curso?")) return;
 
