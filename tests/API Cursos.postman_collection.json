@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "e35edc34-dd40-4dec-9ee9-2c8f94a322f8",
+		"name": "API Cursos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46274641",
+		"_collection_link": "https://june-3777218.postman.co/workspace/june's-Workspace~aa16a4ea-e893-45b5-8ddf-09c170d16c84/collection/46274641-e35edc34-dd40-4dec-9ee9-2c8f94a322f8?action=share&source=collection_link&creator=46274641"
+	},
+	"item": [
+		{
+			"name": "/cursos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restapi-deploy-demo-vsf8.onrender.com/cursos",
+					"protocol": "https",
+					"host": [
+						"restapi-deploy-demo-vsf8",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"cursos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/cursos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Engenharia Informatica\",\r\n  \"codigo\": \"ESW01\",\r\n  \"duracao\": 4\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restapi-deploy-demo-vsf8.onrender.com/cursos",
+					"protocol": "https",
+					"host": [
+						"restapi-deploy-demo-vsf8",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"cursos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/cursos/:id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Engenharia Atualizada\",\r\n  \"codigo\": \"ESW02\",\r\n  \"duracao\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restapi-deploy-demo-vsf8.onrender.com/cursos/68631ecd1e38942d247b46c2",
+					"protocol": "https",
+					"host": [
+						"restapi-deploy-demo-vsf8",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"cursos",
+						"68631ecd1e38942d247b46c2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/cursos/:id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/cursos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cursos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
