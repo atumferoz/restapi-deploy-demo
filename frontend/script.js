@@ -36,6 +36,7 @@ function carregarAlunos() {
             `${a.nome} ${a.apelido} ${a.curso?.nome}`.toLowerCase().includes(termo)
           )
         : data;
+console.log("Renderizando alunos:", filtrados); 
 
       lista.innerHTML = filtrados.map(a => `
         <div class="aluno-card" data-id="${a._id}">
