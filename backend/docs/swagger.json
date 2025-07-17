@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Acadêmica",
+    "version": "1.0.0",
+    "description": "Documentação da API de alunos e cursos"
+  },
+  "paths": {
+    "/alunos": {
+      "get": {
+        "summary": "Listar todos os alunos",
+        "responses": {
+          "200": {
+            "description": "Lista de alunos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar novo aluno",
+        "responses": {
+          "201": {
+            "description": "Aluno criado"
+          }
+        }
+      }
+    },
+    "/alunos/{id}": {
+      "put": {
+        "summary": "Atualizar aluno",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aluno atualizado"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletar aluno",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aluno deletado"
+          }
+        }
+      }
+    },
+    "/cursos": {
+      "get": {
+        "summary": "Listar todos os cursos",
+        "responses": {
+          "200": {
+            "description": "Lista de cursos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar novo curso",
+        "responses": {
+          "201": {
+            "description": "Curso criado"
+          }
+        }
+      }
+    },
+    "/cursos/{id}": {
+      "put": {
+        "summary": "Atualizar curso",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Curso atualizado"
+          },
+          "404": {
+            "description": "Curso não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletar curso",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Curso deletado"
+          }
+        }
+      }
+    }
+  }
+}
