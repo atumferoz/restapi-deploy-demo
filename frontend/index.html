@@ -45,8 +45,9 @@
           <label for="apelido">Apelido</label>
           <input type="text" id="apelido" required>
 
+          <!-- ✅ Curso como SELECT -->
           <label for="curso">Curso</label>
-          <input type="text" id="curso" required>
+          <select id="curso" required></select>
 
           <label for="ano">Ano</label>
           <input type="number" id="ano" required>
@@ -62,36 +63,35 @@
 
   <!-- Seção Cursos -->
   <div id="secao-cursos" class="secao" style="display: none;">
-  <div class="consulta-container">
-    
-    <!-- Lista -->
-    <div class="lista-cursos">
-      <h2>Lista de Cursos</h2>
-      <div id="cursos"></div>
+    <div class="consulta-container">
+      
+      <!-- Lista -->
+      <div class="lista-cursos">
+        <h2>Lista de Cursos</h2>
+        <div id="cursos"></div>
+      </div>
+
+      <!-- Formulário -->
+      <div class="form-edicao">
+        <h2>Cadastro de Curso</h2>
+        <form id="form-curso">
+          <label for="nome-curso">Nome</label>
+          <input type="text" id="nome-curso" required>
+
+          <label for="codigo-curso">Código</label>
+          <input type="text" id="codigo-curso" required>
+
+          <label for="duracao-curso">Duração (anos)</label>
+          <input type="number" id="duracao-curso" required min="1">
+
+          <div class="form-actions">
+            <button type="submit">Salvar Curso</button>
+          </div>
+        </form>
+      </div>
+
     </div>
-
-    <!-- Formulário -->
-    <div class="form-edicao">
-      <h2>Cadastro de Curso</h2>
-      <form id="form-curso">
-        <label for="nome-curso">Nome</label>
-        <input type="text" id="nome-curso" required>
-
-        <label for="codigo-curso">Código</label>
-        <input type="text" id="codigo-curso" required>
-
-        <label for="duracao-curso">Duração (anos)</label>
-        <input type="number" id="duracao-curso" required min="1">
-
-        <div class="form-actions">
-          <button type="submit">Salvar Curso</button>
-        </div>
-      </form>
-    </div>
-
   </div>
-</div>
-
 
   <!-- Rodapé -->
   <footer>
