@@ -22,10 +22,10 @@ mongoose.connection.on('connected', () => {
   console.log('🔌 DB conectado:', mongoose.connection.name);
 });
 
-app.use('/alunos', alunosRoutes);
-app.use('/cursos', cursoRoutes);
+app.use('/aluno', alunosRoutes);
+app.use('/curso', cursoRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-app.get('/', (req, res) => res.send('✅ API ativa! Use /alunos/ou /cursos'));
+app.get('/', (req, res) => res.send('✅ API ativa! Use /aluno ou /curso'));
 
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));

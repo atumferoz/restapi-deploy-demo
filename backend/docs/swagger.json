@@ -6,7 +6,7 @@
     "description": "Documentação da API de alunos e cursos"
   },
   "paths": {
-    "/alunos": {
+    "/aluno": {
       "get": {
         "summary": "Listar todos os alunos",
         "responses": {
@@ -24,7 +24,7 @@
         }
       }
     },
-    "/alunos/{id}": {
+    "/aluno/{id}": {
       "put": {
         "summary": "Atualizar aluno",
         "parameters": [
@@ -65,7 +65,7 @@
         }
       }
     },
-    "/cursos": {
+    "/curso": {
       "get": {
         "summary": "Listar todos os cursos",
         "responses": {
@@ -83,7 +83,7 @@
         }
       }
     },
-    "/cursos/{id}": {
+    "/curso/{id}": {
       "put": {
         "summary": "Atualizar curso",
         "parameters": [

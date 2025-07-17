@@ -3,8 +3,8 @@ const router = express.Router();
 const Aluno = require('../models/aluno');
 
 router.get('/', async (req, res) => {
-  const alunos = await Aluno.find().populate('curso');
-  res.json(alunos);
+  const aluno = await Aluno.find().populate('curso');
+  res.json(aluno);
 });
 
 router.post('/', async (req, res) => {

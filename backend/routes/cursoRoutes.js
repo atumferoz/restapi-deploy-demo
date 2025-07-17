@@ -3,8 +3,8 @@ const router = express.Router();
 const Curso = require('../models/curso');
 
 router.get('/', async (req, res) => {
-  const cursos = await Curso.find();
-  res.json(cursos);
+  const curso = await Curso.find();
+  res.json(curso);
 });
 
 router.post('/', async (req, res) => {

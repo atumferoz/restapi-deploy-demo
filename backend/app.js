@@ -8,7 +8,7 @@ app.use(express.json());
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('📦 MongoDB conectado'));
 
-app.use('/alunos', require('./routes/alunoRoutes'));
+app.use('/aluno', require('./routes/alunoRoutes'));
 app.use('/curso', cursoRoutes);
 
 
