@@ -27,7 +27,7 @@ campoPesquisa.addEventListener("input", carregarAlunos);
 document.getElementById("btnPesquisar").addEventListener("click", carregarAlunos);
 
 function carregarAlunos() {
-  fetch(`${urlBase}/alunos`)
+  fetch(`${urlBase}/aluno`)
     .then(r => r.json())
     .then(data => {
       const termo = campoPesquisa.value.trim().toLowerCase();
@@ -84,7 +84,7 @@ form.addEventListener("submit", e => {
     anoCurricular: parseInt(document.getElementById("ano").value),
   };
   const endpoint = alunoEditando
-    ? `${urlBase}/alunos/${alunoEditando}` : `${urlBase}/alunos`;
+    ? `${urlBase}/aluno/${alunoEditando}` : `${urlBase}/aluno`;
   const method = alunoEditando ? "PUT" : "POST";
 
   fetch(endpoint, {
@@ -112,7 +112,7 @@ document.querySelector(".btn-cancelar").addEventListener("click", () => {
 function carregarCursos() {
   const lc = document.getElementById("cursos");
   lc.innerHTML = "<p>Carregando cursos...</p>";
-  fetch(`${urlBase}/cursos`)
+  fetch(`${urlBase}/curso`)
     .then(r => r.json())
     .then(data => {
       if (!data.length) lc.innerHTML = "<p>Nenhum curso encontrado.</p>";
@@ -146,7 +146,7 @@ function deletarCurso(id) {
 
 function atualizarDropdownCursos() {
   const select = document.getElementById("curso");
-  fetch(`${urlBase}/cursos`)
+  fetch(`${urlBase}/curso`)
     .then(r => r.json())
     .then(cursos => {
       select.innerHTML = "";
