@@ -23,9 +23,7 @@ router.put('/:id', async (req, res) => {
       runValidators: true
     });
 
-    if (!atualizado) {
-      return res.status(404).json({ error: "Curso não encontrado" });
-    }
+    if (!atualizado) return res.status(404).json({ error: 'Curso não encontrado' });
 
     res.json(atualizado);
   } catch (err) {

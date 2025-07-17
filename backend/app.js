@@ -18,3 +18,4 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`🚀 API ativa na porta ${PORT}`));
+ 

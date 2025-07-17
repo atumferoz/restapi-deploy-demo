@@ -1,32 +1,42 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
-// Importar rotas
 const alunosRoutes = require('./routes/alunoRoutes');
-const cursoRoutes = require('./routes/cursoRoutes'); // 👈 importar rotas de cursos
+const cursoRoutes = require('./routes/cursoRoutes');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDoc = require('./docs/swagger.json');
 
 const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Conectar ao MongoDB
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Atlas conectado"))
-  .catch(err => console.error("❌ Erro de conexão:", err));
+  .then(() => console.log('📦 MongoDB conectado'))
+  .catch(err => console.error('❌ Falha na conexão com MongoDB:', err));
 
-// Usar rota de alunos
-app.use('/alunos', alunosRoutes);
-app.use('/cursos', cursoRoutes); // 👈 registro das rotas de cursos
-
-// Inicializar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor funciona na porta ${PORT}`);
+mongoose.connection.on('connected', () => {
+  console.log('🔌 Connected to DB:', mongoose.connection.name);
 });
 
+// Routes
+app.use('/alunos', alunosRoutes);
+app.use('/cursos', cursoRoutes); // plural for consistency
+
+// Swagger Docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
+// Default Route
 app.get('/', (req, res) => {
   res.send('✅ API ativa! Use /alunos ou /api-docs');
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
