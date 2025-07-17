@@ -9,8 +9,8 @@ function mostrarSecao(sec) {
   document.querySelectorAll(".secao").forEach(d => d.style.display = "none");
   document.getElementById("secao-" + sec).style.display = "block";
 
-  if (sec === "alunos") carregarAlunos();
-  if (sec === "cursos") {
+  if (sec === "aluno") carregarAlunos();
+  if (sec === "curso") {
     carregarCursos();
     atualizarDropdownCursos();
   }
@@ -51,7 +51,7 @@ function carregarAlunos() {
         btn.addEventListener("click", e => {
           const id = e.target.closest('.aluno-card').dataset.id;
           if (confirm("Deseja apagar este aluno?"))
-            fetch(`${urlBase}/alunos/${id}`, { method: 'DELETE' })
+            fetch(`${urlBase}/aluno/${id}`, { method: 'DELETE' })
               .then(() => carregarAlunos());
         })
       );
@@ -137,7 +137,7 @@ function carregarCursos() {
 
 function deletarCurso(id) {
   if (!confirm("Deseja apagar este curso?")) return;
-  fetch(`${urlBase}/cursos/${id}`, { method: "DELETE" })
+  fetch(`${urlBase}/curso/${id}`, { method: "DELETE" })
     .then(() => {
       carregarCursos();
       atualizarDropdownCursos();

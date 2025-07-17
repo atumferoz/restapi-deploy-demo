@@ -26,6 +26,6 @@ app.use('/aluno', alunosRoutes);
 app.use('/curso', cursoRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-app.get('/', (req, res) => res.send('✅ API ativa! Use /aluno ou /curso'));
+app.get('/', (req, res) => res.send('✅ API ativa! Use /aluno ou /curso ou /api-docs para documentação.'));
 
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
