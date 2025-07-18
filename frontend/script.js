@@ -30,13 +30,14 @@ function carregarAlunos() {
   fetch(`${urlBase}/aluno`)
     .then(r => r.json())
     .then(data => {
+      console.log("🔍 Alunos carregados:", data); 
+
       const termo = campoPesquisa.value.trim().toLowerCase();
       const filtrados = termo
         ? data.filter(a =>
             `${a.nome} ${a.apelido} ${a.curso?.nome}`.toLowerCase().includes(termo)
           )
         : data;
-console.log("Renderizando alunos:", filtrados); 
 
       lista.innerHTML = filtrados.map(a => `
         <div class="aluno-card" data-id="${a._id}">
@@ -47,6 +48,7 @@ console.log("Renderizando alunos:", filtrados);
           </div>
         </div>
       `).join('');
+
 
       document.querySelectorAll(".btn-delete").forEach(btn =>
         btn.addEventListener("click", e => {
