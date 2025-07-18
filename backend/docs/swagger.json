@@ -5,41 +5,86 @@
     "version": "1.0.0",
     "description": "Documentação da API de alunos e cursos"
   },
+  "tags": [
+    {
+      "name": "Alunos",
+      "description": "Operações relacionadas aos alunos"
+    },
+    {
+      "name": "Cursos",
+      "description": "Operações relacionadas aos cursos"
+    }
+  ],
   "paths": {
     "/aluno": {
       "get": {
+        "tags": ["Alunos"],
         "summary": "Listar todos os alunos",
         "responses": {
           "200": {
-            "description": "Lista de alunos"
+            "description": "Lista de alunos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Aluno" }
+                }
+              }
+            }
           }
         }
       },
       "post": {
+        "tags": ["Alunos"],
         "summary": "Criar novo aluno",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AlunoInput" }
+            }
+          }
+        },
         "responses": {
           "201": {
-            "description": "Aluno criado"
+            "description": "Aluno criado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Aluno" }
+              }
+            }
           }
         }
       }
     },
     "/aluno/{id}": {
       "put": {
+        "tags": ["Alunos"],
         "summary": "Atualizar aluno",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AlunoInput" }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Aluno atualizado"
+            "description": "Aluno atualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Aluno" }
+              }
+            }
           },
           "404": {
             "description": "Aluno não encontrado"
@@ -47,58 +92,92 @@
         }
       },
       "delete": {
-        "summary": "Deletar aluno",
+        "tags": ["Alunos"],
+        "summary": "Apagar aluno",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
           "204": {
-            "description": "Aluno deletado"
+            "description": "Aluno apagado"
           }
         }
       }
     },
     "/curso": {
       "get": {
+        "tags": ["Cursos"],
         "summary": "Listar todos os cursos",
         "responses": {
           "200": {
-            "description": "Lista de cursos"
+            "description": "Lista de cursos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Curso" }
+                }
+              }
+            }
           }
         }
       },
       "post": {
+        "tags": ["Cursos"],
         "summary": "Criar novo curso",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CursoInput" }
+            }
+          }
+        },
         "responses": {
           "201": {
-            "description": "Curso criado"
+            "description": "Curso criado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Curso" }
+              }
+            }
           }
         }
       }
     },
     "/curso/{id}": {
       "put": {
+        "tags": ["Cursos"],
         "summary": "Atualizar curso",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CursoInput" }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Curso atualizado"
+            "description": "Curso atualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Curso" }
+              }
+            }
           },
           "404": {
             "description": "Curso não encontrado"
@@ -106,15 +185,14 @@
         }
       },
       "delete": {
+        "tags": ["Cursos"],
         "summary": "Deletar curso",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -122,6 +200,48 @@
             "description": "Curso deletado"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aluno": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "nome": { "type": "string" },
+          "apelido": { "type": "string" },
+          "curso": { "$ref": "#/components/schemas/Curso" },
+          "anoCurricular": { "type": "integer" }
+        }
+      },
+      "AlunoInput": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "apelido": { "type": "string" },
+          "curso": { "type": "string" },
+          "anoCurricular": { "type": "integer" }
+        },
+        "required": ["nome", "apelido", "curso", "anoCurricular"]
+      },
+      "Curso": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "nome": { "type": "string" },
+          "codigo": { "type": "string" },
+          "duracao": { "type": "integer" }
+        }
+      },
+      "CursoInput": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "codigo": { "type": "string" },
+          "duracao": { "type": "integer" }
+        },
+        "required": ["nome", "codigo", "duracao"]
       }
     }
   }
