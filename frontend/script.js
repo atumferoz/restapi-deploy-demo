@@ -156,6 +156,36 @@ function carregarCursos() {
     });
 }
 
+document.getElementById("form-curso").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const curso = {
+    nome: document.getElementById("nome-curso").value,
+    codigo: document.getElementById("codigo-curso").value,
+    duracao: parseInt(document.getElementById("duracao-curso").value),
+  };
+
+  fetch(`${urlBase}/curso`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(curso)
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Erro ao salvar curso");
+      return res.json();
+    })
+    .then(() => {
+      document.getElementById("form-curso").reset();
+      carregarCursos(); // ✅ Refresh list
+      atualizarDropdownCursos(); // ✅ Update dropdown
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Erro ao salvar curso.");
+    });
+});
+
+
 function deletarCurso(id) {
   if (!confirm("Deseja apagar este curso?")) return;
   fetch(`${urlBase}/curso/${id}`, { method: "DELETE" })
