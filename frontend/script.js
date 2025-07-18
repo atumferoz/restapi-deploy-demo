@@ -9,12 +9,16 @@ function mostrarSecao(sec) {
   document.querySelectorAll(".secao").forEach(d => d.style.display = "none");
   document.getElementById("secao-" + sec).style.display = "block";
 
-  if (sec === "aluno") carregarAlunos();
-  if (sec === "curso") {
+  if (sec === "alunos") {
+    carregarAlunos();
+    atualizarDropdownCursos(); 
+  }
+  if (sec === "cursos") {
     carregarCursos();
     atualizarDropdownCursos();
   }
 }
+
 
 // Navigation and search event listeners
 document.querySelectorAll(".nav-links a").forEach(link => {
@@ -64,17 +68,27 @@ function carregarAlunos() {
     );
 
     document.querySelectorAll(".btn-edit").forEach(btn =>
-      btn.addEventListener("click", e => {
-        const div = e.target.closest('.aluno-card');
-        const id = div.dataset.id, texto = div.firstChild.textContent;
-        const regex = /^(.+?) (.+?) - (.+?) \((\d+)/;
-        const [, nome, apelido, cursoNome, ano] = texto.match(regex);
-        document.getElementById("nome").value = nome;
-        document.getElementById("apelido").value = apelido;
-        document.getElementById("ano").value = ano;
-        alunoEditando = id;
-      })
-    );
+  btn.addEventListener("click", e => {
+    const div = e.target.closest('.aluno-card');
+    const id = div.dataset.id;
+    const texto = div.firstChild.textContent;
+
+    const regex = /^(.+?) (.+?) - (.+?) \((\d+)/;
+    const match = texto.match(regex);
+
+    if (match) {
+      const [, nome, apelido, cursoNome, ano] = match;
+      document.getElementById("nome").value = nome;
+      document.getElementById("apelido").value = apelido;
+      document.getElementById("ano").value = ano;
+      alunoEditando = id;
+    } else {
+      console.warn("⚠️ Não foi possível extrair dados do texto:", texto);
+      alert("Erro ao tentar editar o aluno. Formato inválido.");
+    }
+  })
+);
+
   })
   .catch(err => {
     console.error(err);
