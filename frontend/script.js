@@ -28,9 +28,14 @@ document.getElementById("btnPesquisar").addEventListener("click", carregarAlunos
 
 function carregarAlunos() {
   fetch(`${urlBase}/aluno`)
-    .then(r => r.json())
-    .then(data => {
-      console.log("🔍 Alunos carregados:", data); 
+  .then(r => {
+    console.log("↩️ Response object:", r);
+    return r.json();
+  })
+  .then(data => {
+    console.log("🔍 Alunos carregados:", data);
+  })
+  .catch(err => console.error("❌ Erro ao carregar alunos:", err));
 
       const termo = campoPesquisa.value.trim().toLowerCase();
       const filtrados = termo
