@@ -186,7 +186,7 @@
       },
       "delete": {
         "tags": ["Cursos"],
-        "summary": "Deletar curso",
+        "summary": "Apagar curso",
         "parameters": [
           {
             "name": "id",
@@ -197,7 +197,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Curso deletado"
+            "description": "Curso apagado"
           }
         }
       }
