@@ -16,6 +16,7 @@ function mostrarSecao(sec) {
   }
 }
 
+// Navigation and search event listeners
 document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
@@ -34,53 +35,51 @@ function carregarAlunos() {
   })
   .then(data => {
     console.log("🔍 Alunos carregados:", data);
-  })
-  .catch(err => console.error("❌ Erro ao carregar alunos:", err));
 
-      const termo = campoPesquisa.value.trim().toLowerCase();
-      const filtrados = termo
-        ? data.filter(a =>
-            `${a.nome} ${a.apelido} ${a.curso?.nome}`.toLowerCase().includes(termo)
-          )
-        : data;
+    const termo = campoPesquisa.value.trim().toLowerCase();
+    const filtrados = termo
+      ? data.filter(a =>
+          `${a.nome} ${a.apelido} ${a.curso?.nome}`.toLowerCase().includes(termo)
+        )
+      : data;
 
-      lista.innerHTML = filtrados.map(a => `
-        <div class="aluno-card" data-id="${a._id}">
-          ${a.nome} ${a.apelido} - ${a.curso?.nome || 'Sem curso'} (${a.anoCurricular}º ano)
-          <div>
-            <button class="btn-action btn-edit">Editar</button>
-            <button class="btn-action btn-delete">Apagar</button>
-          </div>
+    lista.innerHTML = filtrados.map(a => `
+      <div class="aluno-card" data-id="${a._id}">
+        ${a.nome} ${a.apelido} - ${a.curso?.nome || 'Sem curso'} (${a.anoCurricular}º ano)
+        <div>
+          <button class="btn-action btn-edit">Editar</button>
+          <button class="btn-action btn-delete">Apagar</button>
         </div>
-      `).join('');
+      </div>
+    `).join('');
 
 
-      document.querySelectorAll(".btn-delete").forEach(btn =>
-        btn.addEventListener("click", e => {
-          const id = e.target.closest('.aluno-card').dataset.id;
-          if (confirm("Deseja apagar este aluno?"))
-            fetch(`${urlBase}/aluno/${id}`, { method: 'DELETE' })
-              .then(() => carregarAlunos());
-        })
-      );
+    document.querySelectorAll(".btn-delete").forEach(btn =>
+      btn.addEventListener("click", e => {
+        const id = e.target.closest('.aluno-card').dataset.id;
+        if (confirm("Deseja apagar este aluno?"))
+          fetch(`${urlBase}/aluno/${id}`, { method: 'DELETE' })
+            .then(() => carregarAlunos());
+      })
+    );
 
-      document.querySelectorAll(".btn-edit").forEach(btn =>
-        btn.addEventListener("click", e => {
-          const div = e.target.closest('.aluno-card');
-          const id = div.dataset.id, texto = div.firstChild.textContent;
-          const regex = /^(.+?) (.+?) - (.+?) \((\d+)/;
-          const [, nome, apelido, cursoNome, ano] = texto.match(regex);
-          document.getElementById("nome").value = nome;
-          document.getElementById("apelido").value = apelido;
-          document.getElementById("ano").value = ano;
-          alunoEditando = id;
-        })
-      );
-    })
-    .catch(err => {
-      console.error(err);
-      lista.innerHTML = "<p>Erro ao carregar dados.</p>";
-    });
+    document.querySelectorAll(".btn-edit").forEach(btn =>
+      btn.addEventListener("click", e => {
+        const div = e.target.closest('.aluno-card');
+        const id = div.dataset.id, texto = div.firstChild.textContent;
+        const regex = /^(.+?) (.+?) - (.+?) \((\d+)/;
+        const [, nome, apelido, cursoNome, ano] = texto.match(regex);
+        document.getElementById("nome").value = nome;
+        document.getElementById("apelido").value = apelido;
+        document.getElementById("ano").value = ano;
+        alunoEditando = id;
+      })
+    );
+  })
+  .catch(err => {
+    console.error(err);
+    lista.innerHTML = "<p>Erro ao carregar dados.</p>";
+  });
 }
 
 form.addEventListener("submit", e => {
