@@ -11,13 +11,17 @@ exports.listarCursos = async (req, res) => {
 
 exports.criarCurso = async (req, res) => {
   try {
-    const curso = new Curso(req.body);
-    const salvo = await curso.save();
+    const existente = await Curso.findOne({ nome: req.body.nome });
+    if (existente) return res.status(400).json({ error: "Curso já existe" });
+
+    const novoCurso = new Curso(req.body);
+    const salvo = await novoCurso.save();
     res.status(201).json(salvo);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 exports.apagarCurso = async (req, res) => {
   try {
