@@ -30,71 +30,68 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 
 campoPesquisa.addEventListener("input", carregarAlunos);
 document.getElementById("btnPesquisar").addEventListener("click", carregarAlunos);
-
 function carregarAlunos() {
   fetch(`${urlBase}/aluno`)
-  .then(r => {
-    console.log("↩️ Response object:", r);
-    return r.json();
-  })
-  .then(data => {
-    console.log("🔍 Alunos carregados:", data);
+    .then(res => {
+      if (!res.ok) throw new Error("Erro ao buscar alunos");
+      return res.json();
+    })
+    .then(data => {
+      console.log("🔍 Alunos carregados:", data);
 
-    const termo = campoPesquisa.value.trim().toLowerCase();
-    const filtrados = termo
-      ? data.filter(a =>
-          `${a.nome} ${a.apelido} ${a.curso?.nome}`.toLowerCase().includes(termo)
-        )
-      : data;
+      const termo = campoPesquisa.value.trim().toLowerCase();
+      const filtrados = termo
+        ? data.filter(a =>
+            `${a.nome} ${a.apelido} ${a.curso?.nome}`.toLowerCase().includes(termo)
+          )
+        : data;
 
-    lista.innerHTML = filtrados.map(a => `
-      <div class="aluno-card" data-id="${a._id}">
-        ${a.nome} ${a.apelido} - ${a.curso?.nome || 'Sem curso'} (${a.anoCurricular}º ano)
-        <div>
-          <button class="btn-action btn-edit">Editar</button>
-          <button class="btn-action btn-delete">Apagar</button>
+      lista.innerHTML = filtrados.map(a => `
+        <div class="aluno-card" 
+             data-id="${a._id}" 
+             data-nome="${a.nome}" 
+             data-apelido="${a.apelido}" 
+             data-curso="${a.curso?._id}" 
+             data-ano="${a.anoCurricular}">
+          ${a.nome} ${a.apelido} - ${a.curso?.nome || 'Sem curso'} (${a.anoCurricular}º ano)
+          <div>
+            <button class="btn-action btn-edit">Editar</button>
+            <button class="btn-action btn-delete">Apagar</button>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
 
+      // Delete handler
+      document.querySelectorAll(".btn-delete").forEach(btn =>
+        btn.addEventListener("click", e => {
+          const id = e.target.closest('.aluno-card').dataset.id;
+          if (confirm("Deseja apagar este aluno?")) {
+            fetch(`${urlBase}/aluno/${id}`, { method: 'DELETE' })
+              .then(() => carregarAlunos());
+          }
+        })
+      );
 
-    document.querySelectorAll(".btn-delete").forEach(btn =>
-      btn.addEventListener("click", e => {
-        const id = e.target.closest('.aluno-card').dataset.id;
-        if (confirm("Deseja apagar este aluno?"))
-          fetch(`${urlBase}/aluno/${id}`, { method: 'DELETE' })
-            .then(() => carregarAlunos());
-      })
-    );
+      // Edit handler ✅
+      document.querySelectorAll(".btn-edit").forEach(btn =>
+        btn.addEventListener("click", e => {
+          const div = e.target.closest('.aluno-card');
 
-    document.querySelectorAll(".btn-edit").forEach(btn =>
-  btn.addEventListener("click", e => {
-    const div = e.target.closest('.aluno-card');
-    const id = div.dataset.id;
-    const texto = div.firstChild.textContent;
+          document.getElementById("nome").value = div.dataset.nome;
+          document.getElementById("apelido").value = div.dataset.apelido;
+          document.getElementById("ano").value = div.dataset.ano;
+          document.getElementById("curso").value = div.dataset.curso;
 
-    const regex = /^(.+?) (.+?) - (.+?) \((\d+)/;
-    const match = texto.match(regex);
-
-    if (match) {
-      const [, nome, apelido, cursoNome, ano] = match;
-      document.getElementById("nome").value = nome;
-      document.getElementById("apelido").value = apelido;
-      document.getElementById("ano").value = ano;
-      alunoEditando = id;
-    } else {
-      console.warn("⚠️ Não foi possível extrair dados do texto:", texto);
-      alert("Erro ao tentar editar o aluno. Formato inválido.");
-    }
-  })
-);
-
-  })
-  .catch(err => {
-    console.error(err);
-    lista.innerHTML = "<p>Erro ao carregar dados.</p>";
-  });
+          alunoEditando = div.dataset.id;
+        })
+      );
+    })
+    .catch(err => {
+      console.error("❌ Erro ao carregar alunos:", err);
+      lista.innerHTML = "<p>Erro ao carregar dados.</p>";
+    });
 }
+
 
 form.addEventListener("submit", e => {
   e.preventDefault();
